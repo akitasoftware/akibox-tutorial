@@ -105,6 +105,8 @@ async def get_user_file(user_id: str, file_id: str):
         raise HTTPException(status_code=404, detail="File not found")
     return files[user_id][file_id]
 
+# Tutorial: Uncomment this function to add an endpoint to delete files.
+#
 # @app.delete("/users/{user_id}/files/{file_id}", status_code=204)
 # async def delete_user_file(user_id: str, file_id: str):
 #     if user_id not in users:
