@@ -8,3 +8,8 @@ changes show up in Akita's semantic diffs.
 To try out the tutorial, head over
 [here](https://dash.readme.com/project/akita-software/v1.1/docs/get-to-know-akita).
 
+## Building Docker Container
+
+```
+docker build -t akibox-tutorial .
+```
