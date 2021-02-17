@@ -38,23 +38,23 @@ class File(BaseModel):
 
 # Map user IDs to users.
 users = {
-  "2b9046ac-6112-11eb-ae07-3e22fb0d93ba": {
-    "id": "2b9046ac-6112-11eb-ae07-3e22fb0d93ba",
-    "first_name": "Devon",
-    "last_name": "Developer",
-    "email": "devon@devonthedeveloper.com",
+  "2b9046ac-6112-11eb-ae07-3e22fb0d93ba": User(
+    id="2b9046ac-6112-11eb-ae07-3e22fb0d93ba",
+    first_name="Devon",
+    last_name="Developer",
+    email="devon@devonthedeveloper.com",
 
     # Tutorial: Change this to a US-formatted phone number
     #   by removing the leading "+1-".
-    "phone": "+1-323-867-5309",
-  },
-  "38c15834-6112-11eb-86fb-3e22fb0d93ba": {
-    "id": "38c15834-6112-11eb-86fb-3e22fb0d93ba",
-    "first_name": "Alice",
-    "last_name": "Adventurer",
-    "email": "alice@adventuring.org",
-    "phone": "+1-234-567-8901",
-  }
+    phone="+1-323-867-5309",
+  ),
+  "38c15834-6112-11eb-86fb-3e22fb0d93ba": User(
+    id="38c15834-6112-11eb-86fb-3e22fb0d93ba",
+    first_name="Alice",
+    last_name="Adventurer",
+    email="alice@adventuring.org",
+    phone="+1-234-567-8901",
+  ),
 }
 
 # Map user IDs to maps of file IDs to files.
@@ -66,7 +66,7 @@ app = FastAPI()
 async def get_users():
   return { "users": list(users.values()) }
 
-@app.post("/users")
+@app.post("/users", status_code=201)
 async def create_user(user_req: CreateUserRequest):
     user = User(
       id=f'{uuid.uuid1()}',
@@ -84,7 +84,7 @@ async def create_user(user_req: CreateUserRequest):
 async def get_user(user_id: str):
     if user_id not in users:
         raise HTTPException(status_code=404, detail="User not found")
-    return {"user": users[user_id]}
+    return users[user_id]
 
 @app.get("/users/{user_id}/files")
 async def get_user_files(user_id: str):
@@ -97,7 +97,7 @@ async def get_user_files(user_id: str):
 
     return {"files": user_files}
 
-@app.post ("/users/{user_id}/files")
+@app.post("/users/{user_id}/files", status_code=201)
 async def create_user_file(user_id: str, file_req: CreateUserFileRequest):
     if user_id not in users:
         raise HTTPException(status_code=404, detail="User not found")
