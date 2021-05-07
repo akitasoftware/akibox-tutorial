@@ -35,6 +35,11 @@ def test_get_user(client):
     assert response.status_code == 200
     assert response.json()['email'] == "alice@adventuring.org"
 
+def test_get_users_with_limit(client):
+    response = client.get(f'/users?limit=1')
+    assert response.status_code == 200
+    assert len(response.json()) == 1
+
 def test_file_crud(client):
     # Create file 1
     f1 = client.post(f'/users/{user_1}/files', json={

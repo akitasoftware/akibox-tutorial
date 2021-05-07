@@ -24,10 +24,26 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
+### Make some requests!
+
+Use the `test.sh` script to make some requests against your service.
+
+```bash
+./test.sh
+```
+
 ## Building Docker Container
 
 Optionally, you can build Akibox into a Docker container.
 
 ```
 docker build -t akibox-tutorial .
+```
+
+## Integration Tests
+
+Integration tests are defined in `test_main.py`.  To run them:
+
+```bash
+pytest
 ```
