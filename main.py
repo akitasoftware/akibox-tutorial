@@ -65,7 +65,7 @@ app = FastAPI()
 @app.get("/users")
 async def get_users(limit: int = 0):
   if limit < 0:
-      raise HTTPException(status_code=400, detail="'limit' must be greater than zero")
+      raise HTTPException(status_code=400, detail="'limit' cannot be negative")
   actual_limit = limit if 0 < limit else len(users)
   users_list = list(users.values())[:actual_limit]
   return { "users": list(users.values()) }
