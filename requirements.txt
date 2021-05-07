@@ -1,4 +1,4 @@
-akita-fastapi==0.0.2
+akita-fastapi==0.0.3
 akita-har==0.0.2
 attrs==20.3.0
 certifi==2020.12.5
