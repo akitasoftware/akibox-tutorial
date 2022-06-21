@@ -1,0 +1,11 @@
+FROM python:3.7
+
+WORKDIR /code
+COPY ./requirements.txt /code/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY ./main.py /code/app/
+
+RUN bash -c "$(curl -L https://releases.akita.software/scripts/install_akita.sh)"
+
+EXPOSE 80
+CMD ["/usr/local/bin/akita", "apidump", "--service", "akibox", "-u", "root", "-c", "uvicorn app.main:app --host 0.0.0.0 --port 80" ]
