@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PORT=8000
-HOST="localhost:${PORT}"
+PORT=${PORT:-8000}
+HOST=${HOST:-"localhost:${PORT}"}
 USER_1="2b9046ac-6112-11eb-ae07-3e22fb0d93ba"
 USER_2="38c15834-6112-11eb-86fb-3e22fb0d93ba"
 
