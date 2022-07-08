@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  akibox-tutorial:
+    container_name: akibox-tutorial
+    build: .
+    environment:
+      PORT: 8000
+    ports:
+      - "8000:8000"
+  akita-client:
+    container_name: akita-client
+    image: akitasoftware/cli:latest
+    environment:
+      - AKITA_API_KEY_ID=apk_xxx
+      - AKITA_API_KEY_SECRET=your-secret
+    network_mode: "service:akibox-tutorial"
+    entrypoint: /akita apidump --service akibox
