@@ -53,7 +53,7 @@ Use the `test.sh` script to make some requests against your service.
 
 ## Run Akibox with Docker
 
-Optionally, you can build Akibox into a Docker container.  In this case, there are two ways to run the Akita Client:
+Optionally, you can build Akibox into a Docker container.  In this case, there are a few ways to run the Akita Client:
 1. In a separate Docker container attached to the Akibox container's network.
 1. In the same Docker container, as a wrapper that invokes Akibox.
 1. In the same Docker container, as a background process managed by s6.
