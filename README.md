@@ -56,6 +56,7 @@ Use the `test.sh` script to make some requests against your service.
 Optionally, you can build Akibox into a Docker container.  In this case, there are two ways to run the Akita Client:
 1. In a separate Docker container attached to the Akibox container's network.
 1. In the same Docker container, as a wrapper that invokes Akibox.
+1. In the same Docker container, as a background process managed by s6.
 
 ### Build Akibox in a Separate Docker Container
 
@@ -82,9 +83,20 @@ docker run --rm --network container:akibox-tutorial \
 
 ### Build Akibox and the Akita Client in the Same Container
 
-The `Dockerfile.withcli` Docker file shows how to wrap a service with the Akita
-Client.
+There are two ways to run the Akita Client as a background process in a Docker
+container.  To test out Akita, you can wrap your service with the Akita Client.
+The `Dockerfile.withcli` file shows how this works.
 
+There are two drawbacks to this approach, however.
+1. If the Akita Client encounters an error, it will stop your service as well as itself.
+1. The Akita Client does not pass signals it receives to your service.  It will stop if it receives SIGINT or SIGTERM.
+
+As a more robust alternative, you can use
+[s6-overlay](https://github.com/just-containers/s6-overlay) to run the Akita
+Client as a background process.  The `Dockerfile.withs6` file shows how
+to do this.
+
+Once you choose an approach, build the `akita-tutorial` image.
 ```bash
 docker build -t akibox-tutorial -f Dockerfile.withcli .
 ```
@@ -92,7 +104,10 @@ docker build -t akibox-tutorial -f Dockerfile.withcli .
 #### Run Akibox and the Akita Client
 
 ```bash
-docker run -e PORT=8000 -p 8000:8000 -name akibox-tutorial akibox-tutorial
+docker run -e PORT=8000 -p 8000:8000 --name akibox-tutorial \
+  -e AKITA_API_KEY_ID=your-api-key \
+  -e AKITA_API_KEY_SECRET=your-secret \
+  akibox-tutorial
 ```
 
 ### Make some requests!
