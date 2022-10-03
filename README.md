@@ -66,7 +66,7 @@ docker build -t akibox-tutorial .
 #### Run Akibox
 
 ```bash
-docker run -e PORT=8000 -p 8000:8000 -name akibox-tutorial akibox-tutorial
+docker run -e PORT=8000 -p 8000:8000 --name akibox-tutorial akibox-tutorial
 ```
 
 #### Start the Akita Client
