@@ -15,7 +15,8 @@ ENTRYPOINT ["/init"]
 ARG AKITA_DIR=/etc/s6-overlay/s6-rc.d/akita-cli
 RUN mkdir -p ${AKITA_DIR}
 
-RUN echo $'#!/command/execlineb -P \nwith-contenv akita apidump --project akibox' > ${AKITA_DIR}/run
+RUN echo '#!/command/execlineb -P\n\
+    with-contenv akita apidump --project akibox\n' > ${AKITA_DIR}/run
 
 RUN echo longrun > ${AKITA_DIR}/type
 RUN touch /etc/s6-overlay/s6-rc.d/user/contents.d/akita-cli
